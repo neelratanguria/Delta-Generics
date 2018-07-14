@@ -29,7 +29,6 @@ public class GenericsActivity extends Activity {
     private int currentSelection = 0;
 
     // Adaptors
-    CatAdapter catAdapter;
     AdoptAdaptor<Cat> catAdoptAdaptor;
     AdoptAdaptor<Dog> dogAdoptAdaptor;
 
@@ -50,13 +49,10 @@ public class GenericsActivity extends Activity {
             }
         });
 
-        //catAdapter = new CatAdapter(this,nameTextView,descriptionTextView,ratingView,portraitView);
-        //catAdapter.set(AdoptData.mCatList.get(0));
 
         catAdoptAdaptor = new AdoptAdaptor<Cat>(this,nameTextView,descriptionTextView,ratingView,portraitView);
-        //catAdoptAdaptor.set(AdoptData.mCatList.get(0));
-
         dogAdoptAdaptor = new AdoptAdaptor<Dog>(this,nameTextView,descriptionTextView,ratingView,portraitView);
+
         dogAdoptAdaptor.set(AdoptData.mDogList.get(0));
 
     }
@@ -76,7 +72,6 @@ public class GenericsActivity extends Activity {
             else {
                 random = (int) (Math.random() *AdoptData.mDogList.size());
             }
-            random = random;
         }
         currentSelection = random;
 
