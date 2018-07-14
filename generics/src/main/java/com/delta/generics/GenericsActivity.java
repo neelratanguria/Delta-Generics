@@ -28,7 +28,10 @@ public class GenericsActivity extends Activity {
 
     private int currentSelection = 0;
 
+    // Adaptors
     CatAdapter catAdapter;
+    AdoptAdaptor<Cat> catAdoptAdaptor;
+    AdoptAdaptor<Dog> dogAdoptAdaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +50,45 @@ public class GenericsActivity extends Activity {
             }
         });
 
-        catAdapter = new CatAdapter(this,nameTextView,descriptionTextView,ratingView,portraitView);
-        catAdapter.set(AdoptData.mCatList.get(0));
+        //catAdapter = new CatAdapter(this,nameTextView,descriptionTextView,ratingView,portraitView);
+        //catAdapter.set(AdoptData.mCatList.get(0));
+
+        catAdoptAdaptor = new AdoptAdaptor<Cat>(this,nameTextView,descriptionTextView,ratingView,portraitView);
+        //catAdoptAdaptor.set(AdoptData.mCatList.get(0));
+
+        dogAdoptAdaptor = new AdoptAdaptor<Dog>(this,nameTextView,descriptionTextView,ratingView,portraitView);
+        dogAdoptAdaptor.set(AdoptData.mDogList.get(0));
 
     }
 
+    int catOrDog;
     public void showNext(){
         int random = currentSelection;
         while(random == currentSelection){
             //avoid same selection twice.
-            random = (int )(Math.random() * AdoptData.mCatList.size());
+            catOrDog = 0;
+            while (catOrDog == 0) {
+                catOrDog = (int) (Math.random() * 3);
+            }
+            if (catOrDog==1){
+                random = (int) (Math.random() *AdoptData.mCatList.size());
+            }
+            else {
+                random = (int) (Math.random() *AdoptData.mDogList.size());
+            }
+            random = random;
         }
         currentSelection = random;
-        Cat c = AdoptData.mCatList.get(random);
-        catAdapter.set(c);
+
+        if (catOrDog==1)
+        {
+            Cat c = AdoptData.mCatList.get(random);
+            catAdoptAdaptor.set(c);
+        }
+        else {
+            Dog d = AdoptData.mDogList.get(random);
+            dogAdoptAdaptor.set(d);
+        }
     }
 
 
